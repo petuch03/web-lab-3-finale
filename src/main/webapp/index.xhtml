@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="stylesheet" href="resources/decorations/style.css"/>
+    <link rel="icon" type="image/png" href="resources/decorations/pic.png"/>
+    <meta name="author" content="petuch03"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+</h:head>
+
+<h:body>
+    <h2>index</h2>
+
+    <div id="clock"></div>
+    <br/>
+    <h:link id="start" outcome="toMain">
+        <button type="submit">
+            to main
+        </button>
+    </h:link>
+
+</h:body>
+<h:outputScript library="scripts" name="time.js"/>
+</html>
