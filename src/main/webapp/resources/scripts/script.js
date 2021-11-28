@@ -16,7 +16,7 @@ function validateY() {
         alert("Y must be a number;");
         return false;
     }
-    if (y.value <= -5 || y.value >= 3) {
+    if (y.value < -5 || y.value > 3) {
         alert("Y must be in the following interval: (-5; 3);");
         return false;
     }
