@@ -53,10 +53,10 @@
         <echo message="--- COMPILATION START ---"/>
         <javac srcdir="${src.classes}" destdir="${target.classes}" classpathref="classpath" includeantruntime="false"/>
         <javac srcdir="${src.tests}" destdir="${target.tests}" includeantruntime="false">
-<!--            <classpath>-->
-<!--                <pathelement location="target-ant.classes"/>-->
-<!--                <path refid="classpath"/>-->
-<!--            </classpath>-->
+            <classpath>
+                <pathelement location="target-ant.classes"/>
+                <path refid="classpath"/>
+            </classpath>
         </javac>
         <echo message="--- COMPILATION DONE ---"/>
     </target>
@@ -98,6 +98,12 @@
                 <antcall target="history-help"/>
             </catch>
         </trycatch>
+        <git command="diff">
+            <args>
+                <arg value="HEAD"/>
+                <arg value="master"/>
+            </args>
+        </git>
     </target>
 
     <target name="history-help">
@@ -114,7 +120,26 @@
                         <arg value="--force"/>
                     </args>
                 </git>
-                <antcall target="history"/>
+                <antcall target="history-help-2"/>
+            </catch>
+        </trycatch>
+    </target>
+
+    <target name="history-help-2">
+        <trycatch>
+            <try>
+                <echo message="--- TRY COMPILE ---"/>
+                <antcall target="compile"/>
+            </try>
+            <catch>
+                <echo message="--- COMPILATION FAILED ---" />
+                <git command="checkout">
+                    <args>
+                        <arg value="HEAD~1"/>
+                        <arg value="--force"/>
+                    </args>
+                </git>
+                <antcall target="history-help"/>
             </catch>
         </trycatch>
     </target>
