@@ -95,6 +95,7 @@
                         <arg value="--force"/>
                     </args>
                 </git>
+                <antcall target="history"/>
             </catch>
         </trycatch>
     </target>
