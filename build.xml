@@ -23,8 +23,26 @@
         <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
     </path>
 
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="/opt/homebrew/Cellar/ant/1.10.12/libexec/lib/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
 
-    <target name="init">
+    <macrodef name = "git">
+        <attribute name = "command" />
+        <attribute name = "dir" default = "" />
+        <element name = "args" optional = "true" />
+        <sequential>
+            <echo message = "git @{command}" />
+            <exec executable = "git" dir = "@{dir}">
+                <arg value = "@{command}" />
+                <args/>
+            </exec>
+        </sequential>
+    </macrodef>
+
+    <target name="init" description="create directories">
         <!-- Create the time stamp -->
         <tstamp/>
         <mkdir dir="${target.classes}"/>
@@ -40,7 +58,6 @@
                 <path refid="classpath"/>
             </classpath>
         </javac>
-
         <echo message="--- COMPILATION DONE ---"/>
     </target>
 
@@ -62,5 +79,18 @@
         <echo message="--- SCP START ---"/>
         <scp file="${dest}" todir="${username}@helios.se.ifmo.ru:/home/${username}/mispi-3" password="${password}" port="2222"/>
         <echo message="--- SCP DONE ---"/>
+    </target>
+
+    <target name="history">
+        <trycatch>
+            <try>
+                <echo message="--- TRY COMPILE ---"/>
+                <antcall target="compile"/>
+            </try>
+            <catch>
+                <echo message="--- COMPILATION FAILED ---" />
+
+            </catch>
+        </trycatch>
     </target>
 </project>
