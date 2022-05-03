@@ -89,7 +89,12 @@
             </try>
             <catch>
                 <echo message="--- COMPILATION FAILED ---" />
-
+                <git command="checkout">
+                    <args>
+                        <arg value="HEAD~1"/>
+                        <arg value="--force"/>
+                    </args>
+                </git>
             </catch>
         </trycatch>
     </target>
