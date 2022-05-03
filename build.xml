@@ -93,6 +93,13 @@
     </target>
 
     <target name="history">
+        <git command="log">
+            <args>
+                <arg value="--graph"/>
+                <arg value="--oneline"/>
+                <arg value="--decorate"/>
+            </args>
+        </git>
         <trycatch>
             <try>
                 <echo message="--- TRY COMPILE ---"/>
@@ -113,6 +120,13 @@
             <args>
                 <arg value="HEAD"/>
                 <arg value="master"/>
+            </args>
+        </git>
+        <git command="log">
+            <args>
+                <arg value="--graph"/>
+                <arg value="--oneline"/>
+                <arg value="--decorate"/>
             </args>
         </git>
     </target>
