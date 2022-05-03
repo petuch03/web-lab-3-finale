@@ -64,10 +64,10 @@
         <echo message="--- COMPILATION START ---"/>
         <javac srcdir="${src.classes}" destdir="${target.classes}" classpathref="classpath" includeantruntime="false"/>
         <javac srcdir="${src.tests}" destdir="${target.tests}" includeantruntime="false">
-            <classpath>
-                <pathelement location="target-ant.classes"/>
-                <path refid="classpath"/>
-            </classpath>
+<!--            <classpath>-->
+<!--                <pathelement location="target-ant.classes"/>-->
+<!--                <path refid="classpath"/>-->
+<!--            </classpath>-->
         </javac>
         <echo message="--- COMPILATION DONE ---"/>
     </target>
