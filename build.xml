@@ -10,9 +10,14 @@
         <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
     </path>
 
+    <path id="classpath.junit.path">
+        <fileset dir="${classpath.junit.dir}" includes="**/*.jar"/>
+    </path>
+
     <path id="classpath">
         <fileset dir="${classpath.javax.dir}" includes="**/*.jar"/>
         <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
+        <fileset dir="${classpath.junit.dir}" includes="**/*.jar"/>
     </path>
 
     <taskdef resource="net/sf/antcontrib/antlib.xml">
@@ -67,6 +72,23 @@
         <jar destfile="${dest}" basedir="${target.classes}" compress="false" manifest="MANIFEST.MF"/>
         <echo message="--- BUILD DONE ---"/>
     </target>
+
+    <target name="test" depends="build">
+        <echo message="--- TEST START ---"/>
+        <junit fork="true" printsummary="on" haltonerror="on" haltonfailure="on">
+            <formatter type="xml"/>
+            <classpath>
+                <path refid="classpath"/>
+                <pathelement location="${target.classes}"/>
+                <pathelement location="${target.tests}"/>
+            </classpath>
+            <batchtest>
+                <fileset dir="${target.tests}" includes="TestOne.java"/>
+            </batchtest>
+        </junit>
+        <echo message="--- TEST DONE ---"/>
+    </target>
+
 
     <target name="clean">
         <echo message="--- CLEAN START ---"/>

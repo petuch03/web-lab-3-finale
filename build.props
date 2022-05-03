@@ -6,3 +6,4 @@ target.tests=target-ant.tests
 dest=destination.jar
 classpath.javax.dir=/Users/es/.m2/repository/javax
 classpath.org.dir=/Users/es/.m2/repository/org
+classpath.junit.dir=/Users/es/.m2/repository/junit
