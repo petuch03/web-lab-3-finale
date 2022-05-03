@@ -29,16 +29,27 @@
         </classpath>
     </taskdef>
 
-    <macrodef name = "git">
-        <attribute name = "command" />
-        <attribute name = "dir" default = "" />
-        <element name = "args" optional = "true" />
+    <macrodef name="git">
+        <attribute name="command"/>
+        <attribute name="dir" default=""/>
+        <element name="args" optional="true"/>
         <sequential>
-            <echo message = "git @{command}" />
-            <exec executable = "git" dir = "@{dir}">
-                <arg value = "@{command}" />
-                <args/>
-            </exec>
+            <echo message="git @{command}"/>
+            <if>
+                <equals arg1="@{command}" arg2="diff"/>
+                <then>
+                    <exec executable="git" dir="@{dir}" output="diff.txt">
+                        <arg value="@{command}"/>
+                        <args/>
+                    </exec>
+                </then>
+                <else>
+                    <exec executable="git" dir="@{dir}">
+                        <arg value="@{command}"/>
+                        <args/>
+                    </exec>
+                </else>
+            </if>
         </sequential>
     </macrodef>
 
@@ -53,10 +64,10 @@
         <echo message="--- COMPILATION START ---"/>
         <javac srcdir="${src.classes}" destdir="${target.classes}" classpathref="classpath" includeantruntime="false"/>
         <javac srcdir="${src.tests}" destdir="${target.tests}" includeantruntime="false">
-<!--            <classpath>-->
-<!--                <pathelement location="target-ant.classes"/>-->
-<!--                <path refid="classpath"/>-->
-<!--            </classpath>-->
+            <classpath>
+                <pathelement location="target-ant.classes"/>
+                <path refid="classpath"/>
+            </classpath>
         </javac>
         <echo message="--- COMPILATION DONE ---"/>
     </target>
@@ -88,7 +99,7 @@
                 <antcall target="compile"/>
             </try>
             <catch>
-                <echo message="--- COMPILATION FAILED ---" />
+                <echo message="--- COMPILATION FAILED ---"/>
                 <git command="checkout">
                     <args>
                         <arg value="HEAD~1"/>
@@ -113,7 +124,7 @@
                 <antcall target="compile"/>
             </try>
             <catch>
-                <echo message="--- COMPILATION FAILED ---" />
+                <echo message="--- COMPILATION FAILED ---"/>
                 <git command="checkout">
                     <args>
                         <arg value="HEAD~1"/>
@@ -132,7 +143,7 @@
                 <antcall target="compile"/>
             </try>
             <catch>
-                <echo message="--- COMPILATION FAILED ---" />
+                <echo message="--- COMPILATION FAILED ---"/>
                 <git command="checkout">
                     <args>
                         <arg value="HEAD~1"/>
