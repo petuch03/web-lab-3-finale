@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<project name="mispi-lab-3">
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="src.classes" location="src/main/java/org/example/weblab3finale"/>
+    <property name="src.tests" location="src/main/java/test"/>
+    <property name="target.classes" location="target-ant.classes"/>
+    <property name="target.tests" location="target-ant.tests"/>
+    <property name="dest" location="destination.jar"/>
+
+    <property name="classpath.javax.dir" location="/Users/es/.m2/repository/javax"/>
+    <path id="classpath.javax.path">
+        <fileset dir="${classpath.javax.dir}" includes="**/*.jar"/>
+    </path>
+
+    <property name="classpath.org.dir" location="/Users/es/.m2/repository/org"/>
+    <path id="classpath.org.path">
+        <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
+    </path>
+
+    <path id="classpath">
+        <fileset dir="${classpath.javax.dir}" includes="**/*.jar"/>
+        <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
+    </path>
+
+
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <mkdir dir="${target.classes}"/>
+        <mkdir dir="${target.tests}"/>
+    </target>
+
+    <target name="compile" depends="init" description="compile the source">
+        <echo message="--- COMPILATION START ---"/>
+        <javac srcdir="${src.classes}" destdir="${target.classes}" classpathref="classpath" includeantruntime="false"/>
+        <javac srcdir="${src.tests}" destdir="${target.tests}" includeantruntime="false">
+            <classpath>
+                <pathelement location="target-ant.classes"/>
+                <path refid="classpath"/>
+            </classpath>
+        </javac>
+
+        <echo message="--- COMPILATION DONE ---"/>
+    </target>
+
+    <target name="build" depends="compile">
+        <echo message="--- BUILD START ---"/>
+        <jar destfile="${dest}" basedir="${target.classes}" compress="false"/>
+        <echo message="--- BUILD DONE ---"/>
+    </target>
+
+    <target name="clean">
+        <echo message="--- CLEAN START ---"/>
+        <delete dir="${target.classes}"/>
+        <delete dir="${target.tests}"/>
+        <delete file="${dest}"/>
+        <echo message="--- CLEAN DONE ---"/>
+    </target>
+
+    <target name="scp" depends="build">
+        <echo message="--- SCP START ---"/>
+        <scp file="${dest}" todir="${username}@helios.se.ifmo.ru:/home/${username}/mispi-3" password="${password}" port="2222"/>
+        <echo message="--- SCP DONE ---"/>
+    </target>
+</project>
