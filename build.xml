@@ -1,19 +1,11 @@
 <?xml version="1.0"?>
 <project name="mispi-lab-3">
-    <!-- set global properties for this build -->
-    <property name="src" location="src"/>
-    <property name="src.classes" location="src/main/java/org/example/weblab3finale"/>
-    <property name="src.tests" location="src/main/java/test"/>
-    <property name="target.classes" location="target-ant.classes"/>
-    <property name="target.tests" location="target-ant.tests"/>
-    <property name="dest" location="destination.jar"/>
+    <property file="build.props"/>
 
-    <property name="classpath.javax.dir" location="/Users/es/.m2/repository/javax"/>
     <path id="classpath.javax.path">
         <fileset dir="${classpath.javax.dir}" includes="**/*.jar"/>
     </path>
 
-    <property name="classpath.org.dir" location="/Users/es/.m2/repository/org"/>
     <path id="classpath.org.path">
         <fileset dir="${classpath.org.dir}" includes="**/*.jar"/>
     </path>
@@ -54,8 +46,6 @@
     </macrodef>
 
     <target name="init" description="create directories">
-        <!-- Create the time stamp -->
-        <tstamp/>
         <mkdir dir="${target.classes}"/>
         <mkdir dir="${target.tests}"/>
     </target>
@@ -64,17 +54,17 @@
         <echo message="--- COMPILATION START ---"/>
         <javac srcdir="${src.classes}" destdir="${target.classes}" classpathref="classpath" includeantruntime="false"/>
         <javac srcdir="${src.tests}" destdir="${target.tests}" includeantruntime="false">
-<!--            <classpath>-->
-<!--                <pathelement location="target-ant.classes"/>-->
-<!--                <path refid="classpath"/>-->
-<!--            </classpath>-->
+            <classpath>
+                <pathelement location="target-ant.classes"/>
+                <path refid="classpath"/>
+            </classpath>
         </javac>
         <echo message="--- COMPILATION DONE ---"/>
     </target>
 
     <target name="build" depends="compile">
         <echo message="--- BUILD START ---"/>
-        <jar destfile="${dest}" basedir="${target.classes}" compress="false"/>
+        <jar destfile="${dest}" basedir="${target.classes}" compress="false" manifest="MANIFEST.MF"/>
         <echo message="--- BUILD DONE ---"/>
     </target>
 

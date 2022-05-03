@@ -1,0 +1,8 @@
+src=src
+src.classes=src/main/java/org/example/weblab3finale
+src.tests=src/main/java/test
+target.classes=target-ant.classes
+target.tests=target-ant.tests
+dest=destination.jar
+classpath.javax.dir=/Users/es/.m2/repository/javax
+classpath.org.dir=/Users/es/.m2/repository/org
