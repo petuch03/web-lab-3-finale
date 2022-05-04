@@ -1,18 +1,108 @@
 package test;
 
 
+import org.example.weblab3finale.entity.Hit;
 import org.example.weblab3finale.tests.Hello;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.*;
 
-class TestOne {
+public class TestOne {
+    @Test
+    public void addHitCircleTest() {
+        Hit hit = new Hit(-1, -1, 2);
+        hit.checkHit();
+        String prevRes = "yes";
+        assertEquals(prevRes, hit.getRes());
+    }
 
     @Test
     public void helloTest() {
         Hello hello = new Hello();
         assertEquals("HELLO MEOW", hello.helloLOL());
     }
+
+    @Test
+    public void addHitRecTest() {
+        Hit hit = new Hit(1, 1, 2);
+        hit.checkHit();
+        String prevRes = "yes";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitTriangleTest() {
+        Hit hit = new Hit(-0.45, 1, 2);
+        hit.checkHit();
+        String prevRes = "yes";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitZeroTest() {
+        Hit hit = new Hit(0, 0, 2);
+        hit.checkHit();
+        String prevRes = "yes";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitBoundRecTest() {
+        Hit hit = new Hit(2, 2, 2);
+        hit.checkHit();
+        String prevRes = "yes";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitBoundRecCloseTest() {
+        Hit hit = new Hit(2, 2.0001, 2);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitZeroRTest() {
+        Hit hit = new Hit(1, 2, 0);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitNegRTest() {
+        Hit hit = new Hit(1, 2, -1);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitOutBoundTest() {
+        Hit hit = new Hit(1, -1, 2);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitOutBoundCircleTest() {
+        Hit hit = new Hit(-1, -1, 0.5);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+    @Test
+    public void addHitOutBoundTriTest() {
+        Hit hit = new Hit(-1, -1, 0.5);
+        hit.checkHit();
+        String prevRes = "no";
+        assertEquals(prevRes, hit.getRes());
+    }
+
+
 }
 
 // commit 1
