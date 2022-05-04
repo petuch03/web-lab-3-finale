@@ -88,7 +88,7 @@ public class Hit {
     }
 
     private boolean rectangle(double x, double y, double r) {
-        return (x >= 0) && (y <= 0) && (x <= r) && (y >= -(r));
+        return (x >= 0) && (y >= 0) && (x <= r) && (y <= r);
     }
 
     private boolean circle(double x, double y, double r) {return (x <= 0) && (y <= 0) && (pow(x, 2) + pow(y, 2) <= (pow(r, 2)));}
